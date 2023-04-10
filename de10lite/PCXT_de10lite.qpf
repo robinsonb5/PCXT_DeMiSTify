@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------- #
 #
-# Copyright (C) 2017  Intel Corporation. All rights reserved.
+# Copyright (C) 2018  Intel Corporation. All rights reserved.
 # Your use of Intel Corporation's design tools, logic functions 
 # and other software and tools, and its AMPP partner logic 
 # functions, and any output files from any of the foregoing 
@@ -17,13 +17,13 @@
 # -------------------------------------------------------------------------- #
 #
 # Quartus Prime
-# Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-# Date created = 23:17:47  March 23, 2023
+# Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+# Date created = 11:08:20  April 10, 2023
 #
 # -------------------------------------------------------------------------- #
 
-QUARTUS_VERSION = "17.1"
-DATE = "23:17:47  March 23, 2023"
+QUARTUS_VERSION = "18.1"
+DATE = "11:08:20  April 10, 2023"
 
 # Revisions
 

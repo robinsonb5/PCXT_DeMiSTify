@@ -246,7 +246,7 @@ controller : entity work.substitute_mcu
 		sysclk_frequency => 500,
 		--		SPI_FASTBIT=>3,
 		--		SPI_INTERNALBIT=>2,		--keyb beeps if I discomment these two lines
-		debug     => false,
+		debug     => true,
 		jtag_uart => false
 	)
 	port map (
