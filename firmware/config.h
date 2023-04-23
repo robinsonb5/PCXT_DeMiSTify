@@ -34,10 +34,10 @@ here, the number of units defaults to 4. */
 /* Speed up file operations by "bookmarking" the file.
    (Undef to disable, or set to the number of desired bookmarks - a reasonable
    range would be between 4 and 16 */
-#define CONFIG_FILEBOOKMARKS 16
+#define CONFIG_FILEBOOKMARKS 8
 
 /* Keyboard-based Joystick emulation */
-#define CONFIG_JOYKEYS
+#undef CONFIG_JOYKEYS
 #undef CONFIG_JOYKEYS_TOGGLE
 
 /* Send key events via the mist_io block. If the core can support

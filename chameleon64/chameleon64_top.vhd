@@ -521,6 +521,7 @@ rtc_cs<='0';
 		joy4 => std_logic_vector(joy4),
 
 		buttons => (0=>menu_button_n,others=>'0'),
+		c64_keys => std_logic_vector(c64_keys(63 downto 0)),
 
 		-- UART
 		rxd => rs232_rxd,

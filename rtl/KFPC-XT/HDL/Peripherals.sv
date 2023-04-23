@@ -78,6 +78,8 @@ module PERIPHERALS #(
         input   logic           ps2_mousedat_in,
         output  logic           ps2_mouseclk_out,
         output  logic           ps2_mousedat_out,
+		  input   logic   [7:0]   external_keycode,
+		  input   logic           external_key_strobe,
         input   logic   [4:0]   joy_opts,
         input   logic   [31:0]  joy0,
         input   logic   [31:0]  joy1,
@@ -127,6 +129,9 @@ module PERIPHERALS #(
         output  logic   [7:0]   xtctl = 8'h00,
         output  logic           pause_core
     );
+
+    logic   [7:0]   external_keycode_ff;
+    logic           external_key_latch;
 
     wire [4:0] clkdiv;
     wire grph_mode;
@@ -618,7 +623,7 @@ end
         else
         begin
             keybord_interrupt_ff    <= keybord_irq;
-            keybord_interrupt       <= keybord_interrupt_ff;
+            keybord_interrupt       <= keybord_interrupt_ff | external_key_latch;
             uart_interrupt_ff       <= uart_irq;
             uart_interrupt          <= uart_interrupt_ff;
             uart2_interrupt_ff      <= uart2_irq;
@@ -648,11 +653,20 @@ end
         begin
             keycode_ff  <= 8'h00;
             port_a_in   <= 8'h00;
+				external_key_latch<=1'b0;
         end
         else
         begin
-            keycode_ff  <= ~tandy_video ? keycode : tandy_keycode;
+            keycode_ff  <= external_key_latch ? external_keycode_ff :
+                               ~tandy_video ? keycode : tandy_keycode;
             port_a_in   <= keycode_ff;
+				
+				if(external_key_strobe) begin
+					external_key_latch <= 1'b1;
+					external_keycode_ff <= external_keycode;
+				end
+				if(port_b_in[7])
+					external_key_latch<=1'b0;
         end
     end
 

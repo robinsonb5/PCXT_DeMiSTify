@@ -463,7 +463,7 @@ begin
 		VGA_G => vga_green(7 downto 0),
 		VGA_B => vga_blue(7 downto 0),
 --		C64_KEYS => std_logic_vector(c64_keys),
-		PS2K_CLK_IN => ps2_keyboard_clk_in,
+		PS2K_CLK_IN => ps2_keyboard_clk_in or intercept,
 		PS2K_DAT_IN => ps2_keyboard_dat_in,
 		PS2K_CLK_OUT => ps2_keyboard_clk_out,
 		PS2K_DAT_OUT => ps2_keyboard_dat_out,
@@ -542,6 +542,8 @@ begin
 
 		buttons => (0=>menu_button_n,others=>'0'),
 
+		c64_keys => std_logic_vector(c64_keys(63 downto 0)),
+		
 		-- UART
 		rxd => rs232_rxd,
 		txd => rs232_txd,
@@ -550,6 +552,6 @@ begin
 	);
 
 led_green<=(not act_led) and not spi_ss4;
-	
+
 end architecture;
 

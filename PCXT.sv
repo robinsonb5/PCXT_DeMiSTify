@@ -248,10 +248,13 @@ module PCXT
 
     // .PS2DIV(2000) value is adequate
 
+	 wire [7:0] external_keycode;
+	 wire external_key_strobe;
+	 
     `ifdef MIST_SIDI
     user_io #(.STRLEN($size(CONF_STR)>>3), .PS2DIV(2000), .PS2BIDIR(1), .FEATURES(32'h1050) /* FEAT_PS2REP | FEAT_IDE0_ATA | FEAT_IDE1_ATA*/) user_io
     `else 
-    user_io #(.STRLEN($size(CONF_STR)>>3), .PS2DIV(2000)) user_io 
+    user_io #(.STRLEN($size(CONF_STR)>>3), .PS2DIV(2000), .ARCHIE(1)) user_io 
     `endif
 	(
 		.conf_str      ( CONF_STR       ),
@@ -279,6 +282,9 @@ module PCXT
 		.ps2_mouse_data_i	(ps2_mouse_data_out),
 		.ps2_mouse_clk		(ps2_mouse_clk_in),
 		.ps2_mouse_data		(ps2_mouse_data_in),
+		  `else
+		.key_code(external_keycode),
+		.key_strobe(external_key_strobe),
         `endif
 
 		.joystick_0         (joy0 ),
@@ -435,7 +441,7 @@ module PCXT
 			.c1(clk_56_875),		//56.875 -> 57.272      CLOCK_VGA_MDA
 			.locked()
 		);
-
+		
 	`endif
 
 
@@ -1074,6 +1080,8 @@ module PCXT
 		.ps2_mousedat_in                    (ps2_mouse_data_in),
 		.ps2_mouseclk_out                   (ps2_mouse_clk_out),
 		.ps2_mousedat_out                   (ps2_mouse_data_out),
+		.external_keycode                   (external_keycode),
+		.external_key_strobe                (external_key_strobe),
 		.joy_opts                           (joy_opts),           //Joy0-Disabled, Joy0-Type, Joy1-Disabled, Joy1-Type, turbo_sync
 		.joy0                               (status[28] ? joy1 : joy0),
 		.joy1                               (status[28] ? joy0 : joy1),

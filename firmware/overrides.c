@@ -1,6 +1,13 @@
 // Remove anything that is not needed
 
+#include "user_io.h"
+#include "timer.h"
 #include "statusword.h"
+#include "minfat.h"
+#include "ide.h"
+#include "c64keys.c"
+
+int LoadROM(const char *fn);
  
 const char *bootrom_name1="PCXT    ROM";
 const char *bootrom_name2="TANDY   ROM";
@@ -39,4 +46,22 @@ char *autoboot()
 				
 	return(result);
 }
+
+
+char *get_rtc();
+
+__weak void mainloop()
+{
+	int framecounter;
+	initc64keys();
+	while(1)
+	{
+		handlec64keys();
+		Menu_Run();
+		HandleHDD();
+		if((framecounter++&8191)==0)
+			user_io_send_rtc(get_rtc());
+	}
+}
+
 
