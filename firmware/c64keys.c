@@ -171,8 +171,8 @@ void handlec64keys()
 	static int time=0;
 	int count=0;
 	int idx=63;
-	int nextframe=(c64keys.frame+2)%6;
-	int prevframe=(c64keys.frame+4)%6;
+	unsigned int nextframe=(c64keys.frame+2)%6;
+	unsigned int prevframe=(c64keys.frame+4)%6;
 
 	unsigned int aa;
 	unsigned int ad;

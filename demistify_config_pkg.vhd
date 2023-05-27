@@ -6,9 +6,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package demistify_config_pkg is
-constant demistify_romspace : integer := 14; -- 16k address space to accommodate 16K of ROM
-constant demistify_romsize1 : integer := 13; -- 8k fot the first chunk
-constant demistify_romsize2 : integer := 13; -- 8k for the second chunk
+constant demistify_romspace : integer := 15; -- 32k address space to accommodate 17K of ROM
+constant demistify_romsize1 : integer := 14; -- 16k fot the first chunk
+constant demistify_romsize2 : integer := 10; -- 1k for the second chunk
 
 -- Core-specific button mapping.
 -- Joysticks are (currently) 8 bits width, with the directions in the lower four bits.

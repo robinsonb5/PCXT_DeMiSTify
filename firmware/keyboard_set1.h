@@ -99,25 +99,21 @@
 #define KEY_SET1_NKPOINT 0x53
 
 #define KEY_SET1_RCTRL 0x9d
+
+#define KEY_SET1_UPARROW 0xc8
+#define KEY_SET1_PAGEUP 0xc9
 #define KEY_SET1_LEFTARROW 0xcb
 #define KEY_SET1_RIGHTARROW 0xcd
-#define KEY_SET1_UPARROW 0xc8
 #define KEY_SET1_DOWNARROW 0xd0
-#define KEY_SET1_PAGEUP 0xc9
 #define KEY_SET1_PAGEDOWN 0xe1
+#define KEY_SET1_NKSLASH 0xb5
 #define KEY_SET1_ALTGR 0xb8
 
-
 #define KEY_SET1_INS 0xd2
-#define KEY_SET1_END 0xcf
 #define KEY_SET1_HOME 0xc7
-
-#define KEY_SET1_NKSLASH 0xb5
-
-#define KEY_SET1_DELETE 0xd3
-
+#define KEY_SET1_END 0xcf
 #define KEY_SET1_PRTSCRN 0xb7 // Can't properly encode this
-
-#define KEY_SET1_BREAK 0xc5 // Can't properly encoce this
+#define KEY_SET1_BREAK 0xc5 // Can't properly encode this
+#define KEY_SET1_DELETE 0xd3
 
 

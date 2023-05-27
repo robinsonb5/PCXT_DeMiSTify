@@ -75,5 +75,8 @@ here, the number of units defaults to 4. */
 disable the scandoubler. */
 #undef CONFIG_AUTOSCANDOUBLER
 
+#define CONFIG_SETTINGS
+#define CONFIG_SETTINGS_FILENAME "PCXT    CFG"
+
 #endif
 

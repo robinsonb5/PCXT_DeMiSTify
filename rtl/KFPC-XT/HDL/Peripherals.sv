@@ -416,8 +416,10 @@ module PERIPHERALS #(
     //
     logic           ps2_send_clock;
     logic           keybord_irq;
+    logic           keybord_irq_int;
     logic           uart_irq;
     logic           uart2_irq;
+    logic   [7:0]   keycode_int;
     logic   [7:0]   keycode;
     logic   [7:0]   tandy_keycode;
     logic           prev_ps2_reset;
@@ -447,13 +449,19 @@ module PERIPHERALS #(
         .device_data                (ps2_data),
 
         // I/O
-        .irq                        (keybord_irq),
-        .keycode                    (keycode),
+        .irq                        (keybord_irq_int),
+        .keycode                    (keycode_int),
         .reset_keyboard             (~prev_ps2_reset_n & ps2_reset_n),
         .clear_keycode              (clear_keycode),
         .pause_core                 (pause_core)
     );
 
+	always_comb
+		keycode <= external_key_latch? external_keycode_ff : keycode_int;
+
+	always_ff @(posedge clock, posedge reset)
+        keybord_irq <= keybord_irq_int | external_key_latch;
+	
     // No need to send any command to the PS2 keyboard, answer to reset is created locally
     // Local AA response is generated with signal reset_keyboard in KFPS2KB module
     // Without local AA response there is keyboard controller error in diagnostic ROMs and YUKO ST BIOS
@@ -623,7 +631,7 @@ end
         else
         begin
             keybord_interrupt_ff    <= keybord_irq;
-            keybord_interrupt       <= keybord_interrupt_ff | external_key_latch;
+            keybord_interrupt       <= keybord_interrupt_ff;
             uart_interrupt_ff       <= uart_irq;
             uart_interrupt          <= uart_interrupt_ff;
             uart2_interrupt_ff      <= uart2_irq;
@@ -657,8 +665,7 @@ end
         end
         else
         begin
-            keycode_ff  <= external_key_latch ? external_keycode_ff :
-                               ~tandy_video ? keycode : tandy_keycode;
+            keycode_ff  <= ~tandy_video ? keycode : tandy_keycode;
             port_a_in   <= keycode_ff;
 				
 				if(external_key_strobe) begin

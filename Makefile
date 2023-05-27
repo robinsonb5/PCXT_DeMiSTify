@@ -4,8 +4,9 @@ PROJECT=PCXT
 PROJECTPATH=./
 PROJECTTOROOT=../
 BOARD=
-ROMSIZE1=8192
-ROMSIZE2=8192
+ROMSIZE1=16384
+ROMSIZE2=1024
+STACKSIZE=320
 
 # Prevent MiST / MiSTer targets being built if the user supplied the BOARDS variable when invoking make.
 TARGETS_NOMIST=$(DEMISTIFYPATH)/site.template $(DEMISTIFYPATH)/site.mk $(SUBMODULES) firmware init compile tns
@@ -38,11 +39,11 @@ $(SUBMODULES): $(DEMISTIFYPATH)/EightThirtyTwo/Makefile
 
 .PHONY: firmware
 firmware: $(SUBMODULES)
-	make -C firmware -f ../$(DEMISTIFYPATH)/firmware/Makefile DEMISTIFYPATH=../$(DEMISTIFYPATH) ROMSIZE1=$(ROMSIZE1) ROMSIZE2=$(ROMSIZE2)
+	make -C firmware -f ../$(DEMISTIFYPATH)/firmware/Makefile DEMISTIFYPATH=../$(DEMISTIFYPATH) ROMSIZE1=$(ROMSIZE1) ROMSIZE2=$(ROMSIZE2) STACKSIZE=$(STACKSIZE)
 
 .PHONY: firmware_clean
 firmware_clean: $(SUBMODULES)
-	make -C firmware -f ../$(DEMISTIFYPATH)/firmware/Makefile DEMISTIFYPATH=../$(DEMISTIFYPATH) ROMSIZE1=$(ROMSIZE1) ROMSIZE2=$(ROMSIZE2) clean
+	make -C firmware -f ../$(DEMISTIFYPATH)/firmware/Makefile DEMISTIFYPATH=../$(DEMISTIFYPATH) clean
 
 .PHONY: init
 init:
